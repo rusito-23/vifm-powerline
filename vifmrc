@@ -22,21 +22,22 @@ let R_T=""
 " LEFT SEGMENT COLORS "
 """""""""""""""""""""""
 " current dir colors "
-highlight User1 ctermbg=green   ctermfg=black   cterm=bold
-highlight User2 ctermbg=blue    ctermfg=green   cterm=bold
+highlight User1      ctermbg=34          ctermfg=232        cterm=none
+highlight User2      ctermbg=26          ctermfg=34         cterm=bold
 " current file size colors "
-highlight User3 ctermbg=blue    ctermfg=white   cterm=bold
-highlight User4 ctermbg=magenta ctermfg=blue    cterm=bold
-highlight User5 ctermbg=magenta ctermfg=magenta cterm=bold
+highlight User3      ctermbg=26          ctermfg=15         cterm=bold
+highlight User4      ctermbg=magenta     ctermfg=26         cterm=bold
+highlight User5      ctermbg=magenta     ctermfg=magenta    cterm=bold
 " separator color "
-highlight User6 ctermbg=magenta ctermfg=white   cterm=bold
+highlight User6      ctermbg=magenta     ctermfg=15         cterm=bold
+
 " RIGHT SEGMENT COLORS "
 """""""""""""""""""""""
 " perms colors "
-highlight User8 ctermbg=magenta ctermfg=white   cterm=bold
-highlight User9 ctermbg=white   ctermfg=black   cterm=bold
-" user colors "
-highlight User7 ctermbg=white   ctermfg=green   cterm=bold
+highlight User8      ctermbg=magenta     ctermfg=white      cterm=bold
+highlight User9      ctermbg=15          ctermfg=232        cterm=bold
+" user colors "     
+highlight User7      ctermbg=15          ctermfg=34         cterm=bold
 
 """""""""""""""""
 "   SEGMENTS    "
@@ -55,5 +56,5 @@ set statusline+="%6* %="              " middle separator
 
 " RIGHT SEGMENT "
 """""""""""""""""
-set statusline+="%5*%8*%9* %A"          " perms
+set statusline+="%5*%8*%9* %A "      " perms
 set statusline+="%7*%1* %10u "       " user
