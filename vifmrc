@@ -1,0 +1,59 @@
+
+"""""""""""""""""""""""""""""""""
+" VI FILE MANAGER CONFIGURATION "
+"""""""""""""""""""""""""""""""""
+view
+cnoreabbrev src source ~/.vifm/vifmrc
+cnoreabbrev W w
+
+" COLORSCHEME "
+"""""""""""""""
+colorscheme Zenburn
+
+" STATUS LINE "
+"""""""""""""""
+
+" SEPARATORS "
+let L_B=""
+let L_T=""
+let R_B=""
+let R_T=""
+
+" LEFT SEGMENT COLORS "
+"""""""""""""""""""""""
+" current dir colors "
+highlight User1 ctermbg=green   ctermfg=black   cterm=bold
+highlight User2 ctermbg=blue    ctermfg=green   cterm=bold
+" current file size colors "
+highlight User3 ctermbg=blue    ctermfg=white   cterm=bold
+highlight User4 ctermbg=magenta ctermfg=blue    cterm=bold
+highlight User5 ctermbg=magenta ctermfg=magenta cterm=bold
+" separator color "
+highlight User6 ctermbg=magenta ctermfg=white   cterm=bold
+" RIGHT SEGMENT COLORS "
+"""""""""""""""""""""""
+" perms colors "
+highlight User8 ctermbg=magenta ctermfg=white   cterm=bold
+highlight User9 ctermbg=white   ctermfg=black   cterm=bold
+" user colors "
+highlight User7 ctermbg=white   ctermfg=green   cterm=bold
+
+"""""""""""""""""
+"   SEGMENTS    "
+"""""""""""""""""
+
+" LEFT SEGMENT "
+""""""""""""""""
+set statusline=
+set statusline+="%1* %t %2*"         " current dir 
+set statusline+="%3* %s %4*%5*"     " current file size
+
+
+" SEPARATOR "
+"""""""""""""
+set statusline+="%6* %="              " middle separator
+
+" RIGHT SEGMENT "
+"""""""""""""""""
+set statusline+="%5*%8*%9* %A"          " perms
+set statusline+="%7*%1* %10u "       " user
