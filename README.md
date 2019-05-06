@@ -19,9 +19,8 @@ and that's it!
 
 - A powerline statusbar with the following segments:
 
-```
-current_dir > file_size >>        << permissions < user
-```
+![Without git status](examples/no-status.png)
+![With git status](examples/with-status.png)
 
 - a vifmrc for you to configurate
 
