@@ -22,6 +22,10 @@ and that's it!
 ![Without git status](examples/no-status.png)
 ![With git status](examples/with-status.png)
 
+The **git segment** may contain the following information:
+
+![Git segment](examples/symbols.png)
+
 - a vifmrc for you to configurate
 
 - All [Vifm colorschemes!](https://vifm.info/colorschemes.shtml)
