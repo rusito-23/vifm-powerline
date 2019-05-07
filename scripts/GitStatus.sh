@@ -2,7 +2,6 @@
 
 # --------------------------- #
 #           ICONS             #
-# --------------------------- #
 
 UNTRACKED_ICO=''
 UNSTAGED_ICO=''
@@ -20,7 +19,6 @@ BRANCH_ICO=''
 
 # --------------------------- #
 #         GIT BRANCH          #
-# --------------------------- #
 
 vcs_branch() {
     name=$(git rev-parse --abbrev-ref HEAD 2> /dev/null)
@@ -29,7 +27,6 @@ vcs_branch() {
 
 # --------------------------- #
 #            STATUS           #
-# --------------------------- #
 
 vcs_status() {
     # check for merge
@@ -57,7 +54,6 @@ vcs_status() {
 
 # --------------------------- #
 #            TAGS             #
-# --------------------------- #
 
 vcs_commits() {
     local branch=$(git rev-parse --abbrev-ref HEAD 2> /dev/null)
@@ -74,7 +70,6 @@ vcs_commits() {
 
 # --------------------------- #
 #            TAGS             #
-# --------------------------- #
 
 vcs_tag() {
     local tags=$(git describe --tags --abbrev=0 2> /dev/null)
@@ -85,6 +80,14 @@ vcs_tag() {
     done
 
     echo $res
+}
+
+# --------------------------- #
+#           STASHES           #
+
+vcs_stashes() {
+    local stashes=$(git stash list 2> /dev/null |wc -l)
+    (( stashes )) && echo "${STASH_ICO} ${stashes//[[:space:]]/}"
 }
 
 # --------------------------- #
@@ -100,7 +103,3 @@ vcs_main() {
 }
 
 echo "$(vcs_main)"
-
-
-
-
