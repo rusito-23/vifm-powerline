@@ -8,8 +8,8 @@ UNTRACKED_ICO=''
 UNSTAGED_ICO=''
 STAGED_ICO=''
 
-INCOMING_ICO=''
-OUTGOING_ICO=''
+BEHIND_ICO=''
+AHEAD_ICO=''
 
 STASH_ICO=''
 TAG_ICO=''
@@ -17,7 +17,6 @@ BOOKMARK_ICO=''
 
 COMMIT_ICO=''
 BRANCH_ICO=''
-
 
 # --------------------------- #
 #         GIT BRANCH          #
@@ -28,22 +27,80 @@ vcs_branch() {
     [ ! -z $name ] && echo "${BRANCH_ICO} ${name}"
 }
 
+# --------------------------- #
+#            STATUS           #
+# --------------------------- #
 
-# --------------------------- #
-#          UNTRACKED          #
-# --------------------------- #
-vcs_untracked() {
+vcs_status() {
+    # check for merge
+    (git merge HEAD > /dev/null 2> /dev/null)
+    local merge=$?
+    [ $merge -ne 0 ] && echo "| merge" && return
+
+    # if merge is not in progress
+    local res=""
+
+    # count untracked files
     local untrackedFiles=$(git ls-files --others --exclude-standard 2> /dev/null)
-    [[ -z $untrackedFiles  ]] && return
-    echo $UNTRACKED_ICO
+    [[ ! -z $untrackedFiles  ]] && res+=" ${UNTRACKED_ICO}"
+
+    # count ustaged changes
+    local unstaged=$(git ls-files --modified 2> /dev/null)
+    [[ ! -z $unstaged ]] && res+=" ${UNSTAGED_ICO}"
+
+    # count staged changes/files
+    local staged=$(git diff --staged --name-status 2> /dev/null | wc -l)
+    [ $staged -ne 0 ] && res+=" ${STAGED_ICO}"
+
+    echo $res
 }
 
 # --------------------------- #
-#            STAGE            #
+#            TAGS             #
 # --------------------------- #
-vcs_stage() {
-    # TODO: Check for staged and unstaged changes!
-    echo " "
+
+vcs_commits() {
+    local branch=$(git rev-parse --abbrev-ref HEAD 2> /dev/null)
+    local res=""
+
+    local ahead=$(git rev-list --count $branch@{upstream}..HEAD 2>/dev/null)
+    (( ahead )) && res+=" ${AHEAD_ICO} $ahead"
+
+    local behind=$(git rev-list --count HEAD..$branch@{upstream} 2>/dev/null)
+    (( behind )) && res+=" ${BEHIND_ICO} $behind"
+
+    echo $res
 }
 
-# TODO: commits out and in, tags and stash
+# --------------------------- #
+#            TAGS             #
+# --------------------------- #
+
+vcs_tag() {
+    local tags=$(git describe --tags --abbrev=0 2> /dev/null)
+    local res=""
+
+    for tag in $tags; do
+        res+="${TAG_ICO} $tag "
+    done
+
+    echo $res
+}
+
+# --------------------------- #
+#            MAIN             #
+# --------------------------- #
+
+vcs_main() {
+    # are we inside repo?
+    local repoTopLevel="$(command git rev-parse --show-toplevel 2> /dev/null)"
+    [[ $? != 0 || -z $repoTopLevel ]] && return
+
+    echo "$(vcs_branch) $(vcs_status) $(vcs_commits) $(vcs_tag) $(vcs_stashes)"
+}
+
+echo "$(vcs_main)"
+
+
+
+
